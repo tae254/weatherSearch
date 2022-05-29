@@ -1,0 +1,20 @@
+import requests
+
+API_KEY = "0e991dfe09d91ae8528a646db54d4a43"
+BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
+
+city = input("Enter a City Name: ")
+request_url = f"{BASE_URL}?appid={API_KEY}&q={city}"
+response = requests.get(request_url)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    print(weather)
+    temperature = data['main']['temp']
+    far = round(1.8 * (temperature - 273) + 35)
+    print('It is ' + str(far) + ' degrees in ' + city + ' and ' + weather + ',')
+
+
+else:
+    print("An error occurred")
